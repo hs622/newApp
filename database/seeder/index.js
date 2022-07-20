@@ -1,0 +1,2 @@
+// Migrations
+require('./users')
