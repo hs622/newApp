@@ -7,8 +7,8 @@ const Authenticate = require('../app/middleware/Authenticate');
 
 // Authenticate.guest,
 // auth routes
-router.get("/login", LoginHandler.login);
-router.get("/register", RegisterHandler.register);
+router.post("/login", LoginHandler.login);
+router.post("/register", RegisterHandler.register);
 // router.get("/password-reset-link", RegisterHandler.register);
 
 module.exports = router;

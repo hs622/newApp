@@ -4,12 +4,14 @@ const Auth = require('../routes/auth')
 const User = require('../routes/user')
 const Blog = require('../routes/blog')
 const Exception = require('../routes/exception')
+const cors = require('../app/middleware/Cors')
 
 module.exports = (app) => {
 	app.use(express.json());
+  app.use('*', cors);
   
   app.get("/", (request, response) => {
-    response.send("Welcome to Express.").end();
+    response.redirect('/users');
   });
 
   // Register your routes.
