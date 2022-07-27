@@ -3,8 +3,8 @@ const app = express();
 
 // configuration ===============================================================
 const port = process.env.PORT || 3000;
-// require('./database')
-// require('./database/seeder')
+require('./database')
+require('./database/seeder')
 
 // routes ======================================================================
 require("./routes")(app);

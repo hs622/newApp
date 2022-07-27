@@ -13,7 +13,7 @@ User.find()
 	.then((result) => {
 		result.filter(u => u.name == DefaultUsers.name).length === 0 
 			? seedUser() 
-			: console.log("user already seed.\n",result); 
+			: console.log("user already seed."); 
 	})
 
 seedUser = async () => {
