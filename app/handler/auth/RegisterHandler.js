@@ -1,26 +1,26 @@
-const { body, validationResult } = require('express-validator');
+const validateRequest = require('../../request/registerRequest');
 
-const validateRequest = (request) => {
+module.exports = (request, response) => {
 
-	console.log({ 
-		request
-			// "path": request.url, 
-			// "method": request.method, 
-			// "headers": request.rawHeaders,
-			// "body": request.body
-		});
-}
+	const errors = validateRequest(request.body);
+	// if (!errors.isEmpty())
+	// 	return response.status(422).json({ 
+	// 		success: false, 
+	// 		errors: errors.array() 
+	// 	});
+	// else
+	errors.newValue = {
+		"text" : "value"
+	}
+		return response.send(
 
-module.exports.register = (request, response) => {
-
-	validateRequest(request.body);
-  response.send("working"
-		// JSON.stringify({
-		// 	"path": request.url, 
-		// 	"method": request.method, 
-		// 	"headers": request.rawHeaders,
-		// 	"body": request.body
-		// })
-		)
-		.end();
+				errors
+				// JSON.stringify({
+				// 	"path": request.url, 
+				// 	"method": request.method, 
+				// 	"headers": request.rawHeaders,
+				// 	"body": request.body
+				// })
+				)
+				.end();
 }

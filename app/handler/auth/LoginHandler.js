@@ -1,6 +1,4 @@
-
-
-module.exports.login = (request, response) => {
+module.exports = (request, response) => {
   response.send('Login')
 		.end();
 }

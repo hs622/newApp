@@ -1,9 +1,29 @@
 {
+  "": {},
   "dependencies": {
     "bcrypt": "^5.0.1",
     "express": "^4.18.1",
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.4.5"
-  }
+    "mongoose": "^6.4.5",
+    "nodemon": "^2.0.19"
+  },
+  "name": "newapp",
+  "description": "It is a sample project for testing new way for getting things.",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hs622/newApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hs622/newApp/issues"
+  },
+  "homepage": "https://github.com/hs622/newApp#readme"
 }
