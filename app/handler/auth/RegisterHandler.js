@@ -1,20 +1,34 @@
-const validateRequest = require('../../request/registerRequest');
+const { exist } = require('joi');
+const validateRegisterRequest = require('../../request/registerRequest');
+const Constant = require('../../../constant');
 
-module.exports = (request, response) => {
+module.exports = async (request, response) => {
 
-	const errors = validateRequest(request.body);
+	await validateRegisterRequest(request.body)
+		.then((body) => {
+			console.log("validation: ", body)
+		})
+		.catch((errors) => {
+			let res = errors.details.map(error => error.message);
+			return response.status(Constant.Status.UnprocessableEntity)
+				.send(res)
+				.end();
+		})
+		
+		
 	// if (!errors.isEmpty())
 	// 	return response.status(422).json({ 
 	// 		success: false, 
 	// 		errors: errors.array() 
 	// 	});
 	// else
-	errors.newValue = {
-		"text" : "value"
-	}
+	// result.newValue = {
+	// 	"text" : "value"
+	// }
 		return response.send(
 
-				errors
+			"wait"
+			// JSON.stringify(Validate.result.details)
 				// JSON.stringify({
 				// 	"path": request.url, 
 				// 	"method": request.method, 

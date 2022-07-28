@@ -1,9 +1,22 @@
-const { rules, validationResult } = require('express-validator');
+const Joi = require('joi');
 
-module.exports = (data) => {
+const GenderEnum = [
+	'Male', 
+	'Female'
+];
 
-  rules('name').isString()
-  // request('email').isEmail().normalizeEmail(),
-  // request('password').isLength({ min: 8, max: 32 })
+// Rules.
+const Rules = Joi.object({
+	name: Joi.string().required(),
+	email: Joi.string().email().required(),
+	password: Joi.string().min(3).max(10).required(),
+	gender: Joi.string().valid(...Object.values(GenderEnum)),
+});
 
+// Request body
+// Validation Operation
+module.exports = async (request) => {
+	return result = await Rules.validateAsync(request, {
+		abortEarly: false,
+	});
 }
