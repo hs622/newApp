@@ -1,36 +1,37 @@
-const { exist } = require("joi");
-const validateRegisterRequest = require("../../request/registerRequest");
 const Constant = require("../../../constant");
+const validateRegisterRequest = require("../../validations/registerValidation");
+const User = require('../../../schema/userSchema');
 
 module.exports = async (request, response) => {
   try {
-    const errors = await validateRegisterRequest(request.body);
+    const body = await validateRegisterRequest(request.body);
 
-    return response.status(200).send(errors);
+    return response.send(body);
+    // User.create({
+    //   "name": body.name,
+    //   "email": body.email,
+    //   "password": body.password,
+    //   "gender": body.gender.toLowerCase(),
+    //   "dob": body.dob
+    // }).then((userObject) => {
+    //   return response.status(Constant.Status.OK)
+    //     .send({
+    //       "success": true,
+    //       "user": userObject,
+    //       "message": "User register successfully."
+    //     });
+    // })
+    // .catch((errorObject, ) => {
+    //   return response.status(Constant.Status.InternalServerError)
+    //     .send({
+    //       "success": false,
+    //       "error": errorObject,
+    //       "message": "Error occur while registing user."
+    //     });
+    // });
+
   } catch (errors) {
-    let res = errors.details.map((error) => error.message);
-    return response.status(Constant.Status.UnprocessableEntity).send(res);
+    // let res = errors.details.map((e) => e.message);
+    return response.status(Constant.Status.UnprocessableEntity).send(errors);
   }
-
-  // if (!errors.isEmpty())
-  // 	return response.status(422).json({
-  // 		success: false,
-  // 		errors: errors.array()
-  // 	});
-  // else
-  // result.newValue = {
-  // 	"text" : "value"
-  // }
-  // return response.send(
-
-  // 	"wait"
-  // 	// JSON.stringify(Validate.result.details)
-  // 		// JSON.stringify({
-  // 		// 	"path": request.url,
-  // 		// 	"method": request.method,
-  // 		// 	"headers": request.rawHeaders,
-  // 		// 	"body": request.body
-  // 		// })
-  // 		)
-  // 		.end();
 };

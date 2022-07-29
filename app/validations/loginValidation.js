@@ -1,16 +1,13 @@
-const Joi = require('joi');
-
-const GenderEnum = [
-	'Male', 
-	'Female'
-];
+const Joi = require('joi')
+	.extend(require('@joi/date'));
 
 // Rules.
 const Rules = Joi.object({
-	name: Joi.string().required(),
-	email: Joi.string().email().required(),
+	email: Joi.string().required().messages({
+		// 'string.base': `"a" should be a type of 'text'`, ----- Example
+		'string.empty': `"name": name is required for sign up.`
+	}),
 	password: Joi.string().min(3).max(10).required(),
-	gender: Joi.string().valid(...Object.values(GenderEnum)),
 });
 
 // Request body

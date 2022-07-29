@@ -1,9 +1,31 @@
-POST http://localhost:6000/api/register HTTP/1.1
-content-type: application/json
+
+@httpService = HTTP/1.1
+@hostname = http://127.0.0.1
+@port = 6000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@createdAt = {{$datetime iso8601}}
+@modifiedBy = {{$processEnv USERNAME}}
+@Authorization = ""
+
+POST {{hostname}}:{{port}}/api/register {{httpService}}
+content-type: {{contentType}}
+# Authorization: token xxx
 
 {
-    "name": "sample",
-    "email": "sample@gmail.com",
+    "name": "hussain",
+    "email": "hussaidn@gmail.com",
     "password": "123456789",
-    "gender": "Male"
+    "gender": "male",
+    "dob": "1995-10-07"
 }
+
+###
+
+GET {{hostname}}:{{port}}/api/users {{httpService}}
+content-type: {{contentType}}
+
+###
+
+GET {{hostname}}:{{port}}/api/user/4 {{httpService}}
+content-type: {{contentType}}

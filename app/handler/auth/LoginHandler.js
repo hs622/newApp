@@ -1,4 +1,9 @@
-module.exports = (request, response) => {
-  response.send('Login')
-		.end();
+const User = require('../../../schema/userSchema');
+
+module.exports = async (request, response) => {
+
+
+	
+  response.send('Login');
+
 }
