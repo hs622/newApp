@@ -24,6 +24,9 @@ const userSchema = new Schema({
 		type: Date,
 		required: true
 	},
+	emailVerifiedAt: {
+		type: Date
+	},
 	deletedAt: {
 		type: Date
 	}

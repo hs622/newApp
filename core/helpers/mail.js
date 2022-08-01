@@ -1,45 +1,48 @@
 const NodeMail = require("nodemailer");
 const constant = require("../../constant");
 
-class Mail extends NodeMail {
-
-	constructor(value) {
-		super(value);
-
-	}
-
-	// Methods
-	getHost() {
-		return constant.MAIL.SMTP.HOST;
-	}
-
-	getPORT() {
-		return constant.MAIL.SMTP.PORT;
-	}
-
-	getSystemEmail() {
-		return constant.MAIL.SMTP.AUTH.USER;
-	}
+getHost = () => {
+	const value = constant.MAIL.SMTP.HOST;
+	if(value.length == 0) 
+		throw new Error('Mail host is not set.')
+	else value;
 }
 
-module.exports = Mail;
+getPort = () => {
+	const value = constant.MAIL.SMTP.PORT;
+	if(value.length == 0) 
+		throw new Error('Mail port is not set.') 
+	else value;
+}
+
+getSystemEmail = () => {
+	const value = constant.MAIL.SMTP.AUTH.USER;
+	if(value.length == 0)
+		throw new Error('System Email is not set.') 
+	else value;
+}
+
+function mail() {
+
+		this.getHost();
+		this.getPort();
+		this.getSystemEmail();
+
+		NodeMail.createTransport({
+			host: constant.MAIL.SMTP.HOST,
+			port: constant.MAIL.SMTP.PORT,
+			secure: constant.MAIL.SMTP.SECURE,
+			auth: {
+				user: constant.MAIL.SMTP.AUTH.USER,
+				pass: constant.MAIL.SMTP.AUTH.PASSWORD
+			}
+		})
+};
 
 
-
-
-// module.exports = () => {
-
-// 	if(constant.MAIL.SMTP.HOST && constant.MAIL.SMTP.PORT && constant.MAIL.SMTP.SECURE && constant.MAIL.SMTP.AUTH.USER && constant.MAIL.SMTP.AUTH.PASSWORD != undefined) {
-// 		return Mail.createTransport({
-// 			host: constant.MAIL.SMTP.HOST,
-// 			port: constant.MAIL.SMTP.PORT,
-// 			secure: constant.MAIL.SMTP.SECURE,
-// 			auth: {
-// 					user: constant.MAIL.SMTP.AUTH.USER,
-// 					pass: constant.MAIL.SMTP.AUTH.PASSWORD
-// 			}
-// 		})
-// 	} else {
-// 		return Error.
-// 	}
-// };
+module.exports = {
+	getHost,
+	getPort,
+	getSystemEmail,
+	mail,
+};

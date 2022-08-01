@@ -13,9 +13,9 @@ content-type: {{contentType}}
 # Authorization: token xxx
 
 {
-    "name": "hussain",
-    "email": "hussaiaan@gmail.com",
-    "password": "123456789",
+    "name": "waleed",
+    "email": "waleed@gmail.com",
+    "password": "password",
     "gender": "male",
     "dob": "1995-10-07"
 }

@@ -1,24 +1,21 @@
-const bcrypt = require("bcrypt");
 const User = require('../../schema/userSchema')
-// generate salt to hash password
-const salt = bcrypt.genSalt(10);
 
 const DefaultUsers = {
 	name: "hussain",
 	email: "hussainarif622@gmail.com",
-	password: "password"
+	password: "password",
+	dob: "1995-10-07",
+	gender: "male"
 };
 
 User.find()
 	.then((result) => {
 		result.filter(u => u.name == DefaultUsers.name).length === 0 
 			? seedUser() 
-			: console.log("user already seed."); 
+			: console.log("user already seed.");
 	})
 
 seedUser = async () => {
-	// now we set user password to hashed password
-	DefaultUsers.password = await bcrypt.hash(DefaultUsers.password, salt);
 	let newUser = new User(DefaultUsers);
 	newUser.save()
 		.then((user) => console.log("default user has been created.\n",user))

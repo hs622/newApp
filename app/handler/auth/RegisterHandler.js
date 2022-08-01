@@ -1,59 +1,65 @@
-const MailInit = require("../../../core/helpers/mail");
 const JWT = require("jsonwebtoken");
 const Constant = require("../../../constant");
+const JWT_config = require("../../../config/jwt");
+const Mail = require("../../../core/helpers/mail");
 const User = require('../../../schema/userSchema');
 const validateRegisterRequest = require("../../validations/registerValidation");
 
-// const Mail = MailInit();
-
 module.exports = async (request, response) => {
   try {
-    console.log(MailInit.getHost());
-    // const body = await validateRegisterRequest(request.body);
+    const body = await validateRegisterRequest(request.body);
 
-    
-    // try {
-    //   const userObject = await User.create({
-    //     "name": body.name,
-    //     "email": body.email,
-    //     "password": body.password,
-    //     "gender": body.gender.toLowerCase(),
-    //     "dob": body.dob
-    //   })
+    try {
+      const userObject = await User.create({
+        "name": body.name,
+        "email": body.email,
+        "password": body.password,
+        "gender": body.gender.toLowerCase(),
+        "dob": body.dob
+      })
 
-    //   JWT.sign({
-    //     data: userObject
-    //   }, Constant.JWT.JWT_SECRET, { expiresIn: 60 * 60 })
+      const token = JWT.sign({
+        data: userObject
+      }, JWT_config.JWT_SECRET , { expiresIn: 60 * 60 })
 
-    //   return response.status(Constant.Status.OK)
-    //     .send({
-    //       "success": true,
-    //       "user": userObject,
-    //       "message": "Registration complete, We send you a link to verify your account."
-    //     });
+      const user = {
+        token,
+      };
+      user.userObject;
 
-    // } catch(error) {
+      return response.status(Constant.Status.OK)
+        .send({
+          "success": true,
+          "user": user,
+          "message": "Registration complete, We send you a link to verify your account."
+        });
 
-    //   if(error.code == 11000) {
-    //     return response.status(Constant.Status.UnprocessableEntity)
-    //       .send({
-    //         "success": false,
-    //         "error": {
-    //           "email": "Email address is taken!"
-    //         }
-    //       });
-    //   } else {
-    //     return response.status(Constant.Status.InternalServerError)
-    //       .send({
-    //         "success": false,
-    //         "error": error,
-    //         "message": "Error occur while saving data."
-    //       });
-    //   }
-    // }
+    } catch(error) {
+      if(error.code == 11000) {
+        return response.status(Constant.Status.UnprocessableEntity)
+          .send({
+            "success": false,
+            "error": {
+              "email": "Email address is taken!"
+            }
+          });
+      } else {
+        return response.status(Constant.Status.InternalServerError)
+          .send({
+            "success": false,
+            "error": error,
+            "message": "Error occur while saving data."
+          });
+      }
+    }
 
   } catch (errors) {
+    console.log({ada: errors});
     // let res = errors.details.map((e) => e.message);
-    return response.status(Constant.Status.UnprocessableEntity).send(errors);
+    return response.status(Constant.Status.InternalServerError).send({
+      "success": false,
+      "error": errors.message,
+      "message": "Error occur while saving data."
+    });
   }
 };

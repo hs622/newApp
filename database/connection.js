@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
-const Constants = require('../constant');
+const DB = require('../config/database');
 
-const URL = Constants.DB.SRC + Constants.DB.Host + ":" + String(Constants.DB.Port) + "/" + Constants.DB.name
+const URL = DB.LIVE.SRC + DB.LIVE.username + ":" + DB.LIVE.password + "@" + DB.LIVE.cluster + DB.LIVE.query
 
-mongoose.connect(URL);
+// Configuration
+mongoose.connect(URL, {
+	dbName: DB.LIVE.name
+});
+
 mongoose.connection.on('connected', () => {
-	console.log(`Mongoose default connection open at: ${URL}`);
+	console.log(`Mongodb live connection open at: ${DB.LIVE.name}`);
 });
 
 // error
