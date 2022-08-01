@@ -17,5 +17,21 @@ module.exports = {
 		"Username"	: null,
 		"Password"	: null,
 		"name"			: "new_app_db",
+	},
+
+	JWT: {
+		JWT_SECRET : "asdasd"
+	},
+
+	MAIL: {
+		SMTP: {
+			HOST: "smtp.gmail.com",
+			PORT: 465,
+			SECURE: true,
+			AUTH: {
+				USER: "",
+				PASSWORD: ""
+			}
+		}
 	}
 }

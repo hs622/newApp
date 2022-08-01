@@ -2,9 +2,9 @@ const express = require("express");
 const app = express();
 
 // configuration ===============================================================
-const port = process.env.PORT || 6000;
-// require("./database");
-// require("./database/seeder");
+const port = process.env.PORT || 3000;
+require("./database");
+require("./database/seeder");
 
 // routes ======================================================================
 require("./routes")(app);

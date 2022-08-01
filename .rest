@@ -1,7 +1,7 @@
 
 @httpService = HTTP/1.1
 @hostname = http://127.0.0.1
-@port = 6000
+@port = 3000
 @host = {{hostname}}:{{port}}
 @contentType = application/json
 @createdAt = {{$datetime iso8601}}
@@ -14,7 +14,7 @@ content-type: {{contentType}}
 
 {
     "name": "hussain",
-    "email": "hussaidn@gmail.com",
+    "email": "hussaiaan@gmail.com",
     "password": "123456789",
     "gender": "male",
     "dob": "1995-10-07"
